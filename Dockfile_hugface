@@ -1,41 +1,10 @@
 FROM ubuntu:22.04
 ENV DEBIAN_FRONTEND=noninteractive
-
 RUN apt-get update && apt-get install -y \
-    curl wget nginx ca-certificates \
+    curl wget ca-certificates \
     && rm -rf /var/lib/apt/lists/*
-
 RUN wget -O /usr/local/bin/opencode2api \
     https://github.com/dsadsadsss/Opencodeai/releases/download/2/opencode2api-linux-amd64 \
     && chmod +x /usr/local/bin/opencode2api
-
-RUN cat > /etc/nginx/sites-available/default << 'EOF'
-server {
-    listen 7860;
-    location / {
-        proxy_pass http://127.0.0.1:8000;
-        proxy_set_header Host $host;
-        proxy_set_header X-Real-IP $remote_addr;
-        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-        proxy_read_timeout 300s;
-        proxy_connect_timeout 300s;
-    }
-}
-EOF
-
-RUN cat > /start.sh << 'EOF'
-#!/bin/bash
-set -e
-echo "[1/2] Starting opencode2api on :8000 ..."
-/usr/local/bin/opencode2api --password "${PW}" &
-
-sleep 2
-echo "[2/2] Starting Nginx on :7860 ..."
-nginx -g "daemon off;"
-EOF
-
-RUN chmod +x /start.sh
-
 EXPOSE 7860
-
-CMD ["/start.sh"]
+CMD ["/bin/sh", "-c", "/usr/local/bin/opencode2api --password \"${PW}\" --port 7860"]
