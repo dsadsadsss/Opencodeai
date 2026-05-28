@@ -11,7 +11,7 @@ RUN apt-get update && apt-get install -y \
 
 # Download opencode2api
 RUN wget -O /usr/local/bin/opencode2api \
-    https://github.com/dsadsadsss/Opencodeai/releases/download/1/opencode2api-linux-amd64 \
+    https://github.com/dsadsadsss/Opencodeai/releases/download/2/opencode2api-linux-amd64 \
     && chmod +x /usr/local/bin/opencode2api
 
 # Download cloudflared
