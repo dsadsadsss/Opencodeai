@@ -5,11 +5,10 @@
 
 # opencode2api 服务部署说明
 
-## 架构说明
+## 启动参数
 
-> ⚠️ 注意：该二进制文件本身**不支持** `-password` 参数，直接使用会报错：
 > ```
-> flag provided but not defined: -password
+> -password  -port
 > ```
 
 因此采用了更稳定的代理方案：
