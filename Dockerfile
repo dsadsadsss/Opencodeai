@@ -89,7 +89,7 @@ RUN cat > /start.sh << 'EOF'
 set -e
 
 echo "[1/3] Starting opencode2api on :8000 ..."
-/usr/local/bin/opencode2api &
+/usr/local/bin/opencode2api --password "$PW" &
 
 echo "[2/3] Starting Nginx on :3000 ..."
 nginx -g "daemon off;" &
